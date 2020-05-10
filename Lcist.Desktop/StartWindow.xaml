@@ -1,0 +1,17 @@
+﻿<Window x:Class="Lcist.Desktop.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lcist.Desktop"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="450" Width="800"
+        DataContext="{DynamicResource AppData}">
+    <Window.Resources>
+        <ResourceDictionary Source="Resources/StartWindowResourceDictionary.xaml" />
+    </Window.Resources>
+    <DockPanel>
+        <ListView DockPanel.Dock="Left" Name="MenuPanel" ItemsSource="{Binding MainMenu}" />
+        <ContentPresenter Content="{Binding CurrentViewModel}" />
+    </DockPanel>
+</Window>
