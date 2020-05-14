@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Documents;
 using Lcist.Desktop.ViewModels.Base;
+using Lcist.Desktop.ViewModels.PersonalRythms;
 using Lcist.Resources;
 
 namespace Lcist.Desktop.ViewModels

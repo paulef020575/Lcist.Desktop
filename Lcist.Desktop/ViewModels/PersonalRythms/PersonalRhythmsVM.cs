@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lcist.Classes;
@@ -9,7 +8,7 @@ using Lcist.Desktop.Properties;
 using Lcist.Desktop.ViewModels.Base;
 using Lcist.Resources;
 
-namespace Lcist.Desktop.ViewModels
+namespace Lcist.Desktop.ViewModels.PersonalRythms
 {
     /// <summary>
     ///     VM для расчета персональных биоритмов

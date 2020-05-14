@@ -70,11 +70,29 @@ namespace Lcist.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на SELECT COUNT(*) FROM rithmes WHERE Id = @Id.
+        /// </summary>
+        public static string CheckPersonalResultId {
+            get {
+                return ResourceManager.GetString("CheckPersonalResultId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на INSERT INTO days (user, dateMark, Mark1, Mark2) VALUES (@user, @date, @mark1, @mark2).
         /// </summary>
         public static string InsertDay {
             get {
                 return ResourceManager.GetString("InsertDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на INSERT INTO rithmes (id, user, dateFrom, length, date1, stage1, date2, stage2, date3, stage3) values (@id, @user, @dateFrom, @length, @date1, @stage, @date2, 0, @date3, 0).
+        /// </summary>
+        public static string InsertPersonalResult {
+            get {
+                return ResourceManager.GetString("InsertPersonalResult", resourceCulture);
             }
         }
         

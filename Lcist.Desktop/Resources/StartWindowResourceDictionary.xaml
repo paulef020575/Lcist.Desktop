@@ -2,8 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Lcist.Desktop.Resources"
                     xmlns:viewModels="clr-namespace:Lcist.Desktop.ViewModels"
-                    xmlns:views="clr-namespace:Lcist.Desktop.Views">
-    <DataTemplate DataType="{x:Type viewModels:PersonalRhythmsVM}">
+                    xmlns:views="clr-namespace:Lcist.Desktop.Views"
+                    xmlns:personalRythms="clr-namespace:Lcist.Desktop.ViewModels.PersonalRythms">
+    <DataTemplate DataType="{x:Type personalRythms:PersonalRhythmsVM}">
         <views:PersonalRhythmsView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
@@ -12,7 +13,7 @@
     <DataTemplate DataType="{x:Type viewModels:CommandViewModel}">
         <views:CommandView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type viewModels:UploadViewModel}">
+    <DataTemplate DataType="{x:Type personalRythms:UploadViewModel}">
         <views:UploadView />
     </DataTemplate>
 </ResourceDictionary>
