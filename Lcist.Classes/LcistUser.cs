@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using System.Net.NetworkInformation;
 using FirebirdSql.Data.FirebirdClient;
 using Lcist.Classes.BaseClasses;
 
@@ -21,6 +22,24 @@ namespace Lcist.Classes
         /// </summary>
         public string RealName { get; private set; }
 
+        #region DaysCount
+
+        /// <summary>
+        ///     количество заполненных дней для расчета 
+        /// </summary>
+        public long DaysCount { get; private set; }
+
+        #endregion
+
+        #region PlayersCount 
+
+        /// <summary>
+        ///     количество добавленных пользователем игроков
+        /// </summary>
+        public long PlayersCount { get; private set; }
+
+        #endregion
+
         #endregion
 
         public LcistUser(DbDataReader reader) : base(reader)
@@ -32,6 +51,9 @@ namespace Lcist.Classes
             Id = (int)reader["ID"];
             Name = (string)reader["Name"];
             RealName = (string) reader["RealName"];
+
+            DaysCount = (int) reader["daysCount"];
+            PlayersCount = (int) reader["playersCount"];
         }
 
         /// <summary>

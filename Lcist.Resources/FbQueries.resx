@@ -124,6 +124,12 @@
     <value>SELECT * FROM rithmes Where client = @idUser AND Stage = 2 ORDER BY Id</value>
   </data>
   <data name="LoadUsers" xml:space="preserve">
-    <value>SELECT * FROM CLIENTS</value>
+    <value>SELECT cl.Id, cl.Name, cl.RealName,
+    COUNT(d.dateday) AS daysCount,
+    COUNT(pl.Id) AS PlayersCount
+FROM CLIENTS cl
+LEFT JOIN Days d ON (d.userid = cl.Id)
+LEFT JOIN PlayersNet pl ON (pl.userid = cl.Id)
+group BY cl.Id, cl.Name, cl.RealName</value>
   </data>
 </root>

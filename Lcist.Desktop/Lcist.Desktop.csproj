@@ -66,11 +66,13 @@
     <Compile Include="ViewModels\Base\DataItemViewModel.cs" />
     <Compile Include="ViewModels\Base\DataStateEnum.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\Base\ViewModelWithUsers.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\PersonalRythms\PersonalDayViewModel.cs" />
     <Compile Include="ViewModels\PersonalRythms\PersonalResultViewModel.cs" />
     <Compile Include="ViewModels\PersonalRythms\PersonalRhythmsVM.cs" />
+    <Compile Include="ViewModels\PlayersRythms\UploadPlayersViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="ViewModels\PersonalRythms\UploadViewModel.cs" />

@@ -13,7 +13,7 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
     /// <summary>
     ///     Модуль "Восстановление данных"
     /// </summary>
-    public class UploadViewModel : ViewModel
+    public class UploadViewModel : ViewModelWithUsers
     {
         #region Properties
 
@@ -26,47 +26,6 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
 
         #endregion
 
-        #region UserList
-
-        private ObservableCollection<LcistUser> _userList;
-        /// <summary>
-        ///     Список пользователей из локальной БД
-        /// </summary>
-        public ObservableCollection<LcistUser> UserList
-        {
-            get
-            {
-                if (_userList == null)
-                    _userList = LoadUserList();
-
-                return _userList;
-            }
-        }
-
-        #endregion
-
-        #region CurrentUser
-
-        private LcistUser _currentUser;
-
-        public LcistUser CurrentUser
-        {
-            get { return _currentUser; }
-            set
-            {
-                if (!value.Equals(_currentUser))
-                {
-                    _currentUser = value;
-                    RefreshDays();
-                    RefreshResults();
-                    OnPropertyChanged();
-                }
-            }
-
-    }
-
-
-        #endregion
 
         #region UserDays
 
@@ -93,23 +52,7 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
 
         #region Methods
 
-        #region LoadUserList
-
-        private ObservableCollection<LcistUser> LoadUserList()
-        {
-            ObservableCollection<LcistUser> result = new ObservableCollection<LcistUser>();
-
-            foreach (LcistUser user in FirebirdDataProvider.GetLcistUsers(Settings.Default.LocalDbFile))
-            {
-                result.Add(user);
-                if (user.Id == 23) CurrentUser = user;
-            }
-
-            return result;
-        }
-
-        #endregion
-
+ 
         #region RefreshDays
 
         private void RefreshDays()
@@ -271,5 +214,16 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
         #endregion
 
         #endregion
+
+        protected override bool UserForViewModel(LcistUser user)
+        {
+            return (user.DaysCount > 0);
+        }
+
+        protected override void RefreshUserData()
+        {
+            RefreshDays();
+            RefreshResults();
+        }
     }
 }

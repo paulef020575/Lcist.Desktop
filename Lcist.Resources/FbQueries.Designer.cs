@@ -79,7 +79,13 @@ namespace Lcist.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на SELECT * FROM CLIENTS.
+        ///   Ищет локализованную строку, похожую на SELECT cl.Id, cl.Name, cl.RealName,
+        ///    COUNT(d.dateday) AS daysCount,
+        ///    COUNT(pl.Id) AS PlayersCount
+        ///FROM CLIENTS cl
+        ///LEFT JOIN Days d ON (d.userid = cl.Id)
+        ///LEFT JOIN PlayersNet pl ON (pl.userid = cl.Id)
+        ///group BY cl.Id, cl.Name, cl.RealName.
         /// </summary>
         public static string LoadUsers {
             get {

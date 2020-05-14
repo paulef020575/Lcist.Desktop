@@ -63,6 +63,8 @@
     <Compile Include="LcistUser.cs" />
     <Compile Include="PersonalRhythms\PersonalDay.cs" />
     <Compile Include="PersonalRhythms\PersonalResult.cs" />
+    <Compile Include="PlayersRhythms\Player.cs" />
+    <Compile Include="PlayersRhythms\PlayerAmpluaEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
