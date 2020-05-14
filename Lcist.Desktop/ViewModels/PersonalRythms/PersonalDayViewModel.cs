@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Lcist.Classes.PersonalRhythms;
 using Lcist.Desktop.ViewModels.Base;
 
-namespace Lcist.Desktop.ViewModels
+namespace Lcist.Desktop.ViewModels.PersonalRythms
 {
     public class PersonalDayViewModel : DataItemViewModel<PersonalDay>
     {

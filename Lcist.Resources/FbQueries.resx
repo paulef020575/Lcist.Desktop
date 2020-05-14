@@ -120,6 +120,9 @@
   <data name="LoadDays" xml:space="preserve">
     <value>SELECT * FROM DAYS WHERE UserId = @idUser ORDER BY DateDay</value>
   </data>
+  <data name="LoadPersonalResults" xml:space="preserve">
+    <value>SELECT * FROM rithmes Where client = @idUser AND Stage = 2 ORDER BY Id</value>
+  </data>
   <data name="LoadUsers" xml:space="preserve">
     <value>SELECT * FROM CLIENTS</value>
   </data>

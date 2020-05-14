@@ -70,6 +70,15 @@ namespace Lcist.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на SELECT * FROM rithmes Where client = @idUser AND Stage = 2 ORDER BY Id.
+        /// </summary>
+        public static string LoadPersonalResults {
+            get {
+                return ResourceManager.GetString("LoadPersonalResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на SELECT * FROM CLIENTS.
         /// </summary>
         public static string LoadUsers {

@@ -62,6 +62,7 @@
     <Compile Include="BaseClasses\MySqlDataProvider.cs" />
     <Compile Include="LcistUser.cs" />
     <Compile Include="PersonalRhythms\PersonalDay.cs" />
+    <Compile Include="PersonalRhythms\PersonalResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

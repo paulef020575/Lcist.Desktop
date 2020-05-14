@@ -120,8 +120,14 @@
   <data name="CheckId" xml:space="preserve">
     <value>SELECT Id FROM days WHERE user=@user AND dateMark = @date</value>
   </data>
+  <data name="CheckPersonalResultId" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM rithmes WHERE Id = @Id</value>
+  </data>
   <data name="InsertDay" xml:space="preserve">
     <value>INSERT INTO days (user, dateMark, Mark1, Mark2) VALUES (@user, @date, @mark1, @mark2)</value>
+  </data>
+  <data name="InsertPersonalResult" xml:space="preserve">
+    <value>INSERT INTO rithmes (id, user, dateFrom, length, date1, stage1, date2, stage2, date3, stage3) values (@id, @user, @dateFrom, @length, @date1, @stage, @date2, 0, @date3, 0)</value>
   </data>
   <data name="LoadDays" xml:space="preserve">
     <value>SELECT * FROM days WHERE user = @user ORDER BY dateMark</value>

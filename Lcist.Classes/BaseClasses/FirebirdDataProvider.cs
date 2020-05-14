@@ -58,5 +58,22 @@ namespace Lcist.Classes.BaseClasses
                 }
             }
         }
+
+        public static IEnumerable<PersonalResult> GetUserResults(string localDbFileName, LcistUser user)
+        {
+            using (FbConnection connection = GetConnection(localDbFileName))
+            {
+                FbCommand command = new FbCommand(Resources.FbQueries.LoadPersonalResults, connection);
+                command.Parameters.AddWithValue("idUser", user.Id);
+
+                connection.Open();
+                using (FbDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    while (reader.Read())
+                        yield return new PersonalResult(reader);
+                    reader.Close();
+                }
+            }
+        }
     }
 }

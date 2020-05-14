@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Data;
 using Lcist.Classes;
 using Lcist.Classes.BaseClasses;
 using Lcist.Classes.PersonalRhythms;
@@ -8,7 +8,7 @@ using Lcist.Desktop.Properties;
 using Lcist.Desktop.ViewModels.Base;
 using MySql.Data.MySqlClient;
 
-namespace Lcist.Desktop.ViewModels
+namespace Lcist.Desktop.ViewModels.PersonalRythms
 {
     /// <summary>
     ///     Модуль "Восстановление данных"
@@ -58,6 +58,7 @@ namespace Lcist.Desktop.ViewModels
                 {
                     _currentUser = value;
                     RefreshDays();
+                    RefreshResults();
                     OnPropertyChanged();
                 }
             }
@@ -73,11 +74,21 @@ namespace Lcist.Desktop.ViewModels
 
         #endregion
 
+        #region UserResults
+
+        /// <summary>
+        ///     Коллекция рассчитанных биоритмов
+        /// </summary>
+        public ObservableCollection<PersonalResultViewModel> UserResults { get; }
+
+        #endregion
+
         #endregion
 
         public UploadViewModel()
         {
             UserDays = new ObservableCollection<PersonalDayViewModel>();
+            UserResults = new ObservableCollection<PersonalResultViewModel>();
         }
 
         #region Methods
@@ -91,6 +102,7 @@ namespace Lcist.Desktop.ViewModels
             foreach (LcistUser user in FirebirdDataProvider.GetLcistUsers(Settings.Default.LocalDbFile))
             {
                 result.Add(user);
+                if (user.Id == 23) CurrentUser = user;
             }
 
             return result;
@@ -109,6 +121,16 @@ namespace Lcist.Desktop.ViewModels
 
         #endregion
 
+        #region RefreshResults
+
+        private void RefreshResults()
+        {
+            UserResults.Clear();
+            foreach (PersonalResult personalResult in FirebirdDataProvider.GetUserResults(Settings.Default.LocalDbFile, CurrentUser))
+                UserResults.Add(new PersonalResultViewModel(personalResult));
+        }
+
+        #endregion
 
         #region CheckUploading
 
@@ -127,9 +149,21 @@ namespace Lcist.Desktop.ViewModels
                     object commandResult = command.ExecuteScalar();
                     day.CanAdded = (commandResult == null || DBNull.Value.Equals(commandResult));
                 }
+
+                MySqlCommand command1 = new MySqlCommand(Resources.MySqlQueries.CheckPersonalResultId, connection);
+                command1.Parameters.Add("Id", MySqlDbType.Int32);
+
+                foreach (PersonalResultViewModel result in UserResults)
+                {
+                    command1.Parameters["Id"].Value = result.Id;
+                    object commandResult = command1.ExecuteScalar();
+                    result.CanAdded = (commandResult == null || DBNull.Value.Equals(commandResult) ||
+                                       (long) commandResult == 0);
+                }
+
                 connection.Close();
             }
-            
+
         }
 
         #endregion
@@ -137,6 +171,36 @@ namespace Lcist.Desktop.ViewModels
         #region Upload
 
         private void Upload()
+        {
+            UploadDays();
+            UploadResults();
+        }
+
+        private void UploadResults()
+        {
+            using (MySqlConnection connection = MySqlDataProvider.GetConnection())
+            {
+                connection.Open();
+                MySqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+                MySqlCommand command = new MySqlCommand(Resources.MySqlQueries.InsertPersonalResult, connection, transaction);
+                command.Parameters.Add("id", MySqlDbType.Int32);
+                command.Parameters.AddWithValue("user", CurrentUser.Id);
+                command.Parameters.Add("dateFrom", MySqlDbType.DateTime);
+                command.Parameters.Add("length", MySqlDbType.Int16);
+                command.Parameters.Add("date1", MySqlDbType.DateTime);
+                command.Parameters.Add("stage", MySqlDbType.Int16);
+                command.Parameters.Add("date2", MySqlDbType.DateTime);
+                command.Parameters.Add("date3", MySqlDbType.DateTime);
+
+                foreach (PersonalResultViewModel viewModel in UserResults)
+                    viewModel.Upload(command);
+
+                transaction.Commit();
+                connection.Close();
+            }
+        }
+
+        private void UploadDays()
         {
             using (MySqlConnection connection = MySqlDataProvider.GetConnection())
             {

@@ -20,11 +20,33 @@
                 <Button Margin="5" Command="{Binding UploadCommand}">Выгрузить</Button>
             </UniformGrid>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding UserDays}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="" Binding="{Binding CanAdded, UpdateSourceTrigger=PropertyChanged}" Width="25" />
-                <DataGridTextColumn Header="Дата" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:dd.MM.yy\}}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <TextBlock TextWrapping="Wrap" Text="{Binding ErrorMessage}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Name="HeaderRow" Height="Auto" />
+                <RowDefinition Name="DataRow" Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="DaysColumn" Width="*" />
+                <ColumnDefinition Name="ResultsColumn" Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Оцененные дни" Grid.Row="0" Grid.Column="0" Margin="5" />
+            <DataGrid ItemsSource="{Binding UserDays}" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="" Binding="{Binding CanAdded, UpdateSourceTrigger=PropertyChanged}" Width="25" />
+                    <DataGridTextColumn Header="Дата" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:dd.MM.yy\}}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock Text="Рассчитанные биоритмы" Grid.Row="0" Grid.Column="1" Margin="5" />
+            <DataGrid ItemsSource="{Binding UserResults}" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="" Binding="{Binding CanAdded, UpdateSourceTrigger=PropertyChanged}" Width="25" />
+                    <DataGridTextColumn Header="Дата заказа" Binding="{Binding DateFrom, StringFormat=\{0:dd.MM.yy\}}" />
+                    <DataGridTextColumn Header="Дней" Binding="{Binding Length}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </DockPanel>
 </UserControl>
