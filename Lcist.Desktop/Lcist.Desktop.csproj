@@ -71,11 +71,15 @@
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\PersonalRythms\PersonalDayViewModel.cs" />
     <Compile Include="ViewModels\PersonalRythms\PersonalResultViewModel.cs" />
-    <Compile Include="ViewModels\PersonalRythms\PersonalRhythmsVM.cs" />
+    <Compile Include="ViewModels\PersonalRythms\PersonalRhythmsViewModel.cs" />
+    <Compile Include="ViewModels\PlayersRythms\MatchViewModel.cs" />
+    <Compile Include="ViewModels\PlayersRythms\PlayerViewModel.cs" />
+    <Compile Include="ViewModels\PlayersRythms\QueryViewModel.cs" />
     <Compile Include="ViewModels\PlayersRythms\UploadPlayersViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="ViewModels\PersonalRythms\UploadViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\CommandView.xaml.cs">
       <DependentUpon>CommandView.xaml</DependentUpon>
     </Compile>
@@ -84,6 +88,9 @@
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UploadPlayersView.xaml.cs">
+      <DependentUpon>UploadPlayersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UploadView.xaml.cs">
       <DependentUpon>UploadView.xaml</DependentUpon>
@@ -113,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UploadPlayersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

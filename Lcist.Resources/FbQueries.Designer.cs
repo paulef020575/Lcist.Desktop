@@ -70,6 +70,15 @@ namespace Lcist.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на SELECT * FROM matches WHERE player = @idPlayer ORDER BY dateMatch.
+        /// </summary>
+        public static string LoadMatches {
+            get {
+                return ResourceManager.GetString("LoadMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на SELECT * FROM rithmes Where client = @idUser AND Stage = 2 ORDER BY Id.
         /// </summary>
         public static string LoadPersonalResults {
@@ -79,12 +88,37 @@ namespace Lcist.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на SELECT pl.Id,
+        ///        pl.Name,
+        ///        pl.Birthday,
+        ///        pl.state, COALESCE(pl.cost, 0) AS cost,
+        ///        (SELECT COUNT(*) FROM matches m WHERE m.player = pl.Id) as matchCount
+        ///FROM playersNet pl WHERE pl.UserId = @idUser ORDER BY pl.Name.
+        /// </summary>
+        public static string LoadPlayers {
+            get {
+                return ResourceManager.GetString("LoadPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на SELECT *
+        ///    FROM inetqueries
+        ///    WHERE player = @idPlayer
+        ///        AND stage = 2
+        ///    ORDER BY dateFor.
+        /// </summary>
+        public static string LoadQueries {
+            get {
+                return ResourceManager.GetString("LoadQueries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на SELECT cl.Id, cl.Name, cl.RealName,
-        ///    COUNT(d.dateday) AS daysCount,
-        ///    COUNT(pl.Id) AS PlayersCount
+        ///    (SELECT COUNT(d.dateday) FROM days d WHERE d.userId = cl.Id) AS daysCount,
+        ///    (SELECT COUNT(pl.Id) FROM playersNet pl WHERE pl.userId = cl.Id) AS PlayersCount
         ///FROM CLIENTS cl
-        ///LEFT JOIN Days d ON (d.userid = cl.Id)
-        ///LEFT JOIN PlayersNet pl ON (pl.userid = cl.Id)
         ///group BY cl.Id, cl.Name, cl.RealName.
         /// </summary>
         public static string LoadUsers {

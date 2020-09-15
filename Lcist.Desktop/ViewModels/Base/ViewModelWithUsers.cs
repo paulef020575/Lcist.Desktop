@@ -11,9 +11,9 @@ namespace Lcist.Desktop.ViewModels.Base
 
         #region UserList
 
-        private ObservableCollection<LcistUser> _userList;
+        private ObservableCollection<UserViewModel> _userList;
 
-        public ObservableCollection<LcistUser> UserList
+        public ObservableCollection<UserViewModel> UserList
         {
             get
             {
@@ -29,9 +29,9 @@ namespace Lcist.Desktop.ViewModels.Base
 
         #region CurrentUser
 
-        private LcistUser _currentUser;
+        private UserViewModel _currentUser;
 
-        public LcistUser CurrentUser
+        public UserViewModel CurrentUser
         {
             get { return _currentUser; }
             set
@@ -53,17 +53,18 @@ namespace Lcist.Desktop.ViewModels.Base
 
         #region LoadUserList
 
-        protected virtual ObservableCollection<LcistUser> LoadUserList()
+        protected virtual ObservableCollection<UserViewModel> LoadUserList()
         {
-            ObservableCollection<LcistUser> result = new ObservableCollection<LcistUser>();
+            ObservableCollection<UserViewModel> result = new ObservableCollection<UserViewModel>();
 
             foreach (LcistUser user in FirebirdDataProvider.GetLcistUsers(Settings.Default.LocalDbFile))
             {
                 if (UserForViewModel(user))
                 {
-                    result.Add(user);
+                    UserViewModel viewModel = new UserViewModel(user);
+                    result.Add(viewModel);
 
-                    if (user.Id == 23) CurrentUser = user;
+                    if (user.Id == 23) CurrentUser = viewModel;
                 }
             }
 

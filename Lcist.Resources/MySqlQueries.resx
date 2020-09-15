@@ -120,19 +120,47 @@
   <data name="CheckId" xml:space="preserve">
     <value>SELECT Id FROM days WHERE user=@user AND dateMark = @date</value>
   </data>
+  <data name="CheckMatchByDate" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM matches WHERE player = @idPlayer AND matchDate = @dateMatch</value>
+  </data>
   <data name="CheckPersonalResultId" xml:space="preserve">
     <value>SELECT COUNT(*) FROM rithmes WHERE Id = @Id</value>
+  </data>
+  <data name="CheckPlayerById" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM players WHERE Id = @id</value>
+  </data>
+  <data name="CheckQueryById" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM queries WHERE Id = @id</value>
+  </data>
+  <data name="GetCurrentRhythmQueries" xml:space="preserve">
+    <value>SELECT * FROM rithmes WHERE stage1 = @stage</value>
   </data>
   <data name="InsertDay" xml:space="preserve">
     <value>INSERT INTO days (user, dateMark, Mark1, Mark2) VALUES (@user, @date, @mark1, @mark2)</value>
   </data>
+  <data name="InsertMatch" xml:space="preserve">
+    <value>INSERT INTO matches (user, player, matchDate, goal1, goal2, goal3, yellow1, red, reason1, reason3, personal, stage) VALUES (@idUser, @idPlayer, @dateMatch, @goal1, @goal2, @goal3, @yellow, @red, @reason1, @reason3, @personal, 2)</value>
+  </data>
   <data name="InsertPersonalResult" xml:space="preserve">
     <value>INSERT INTO rithmes (id, user, dateFrom, length, date1, stage1, date2, stage2, date3, stage3) values (@id, @user, @dateFrom, @length, @date1, @stage, @date2, 0, @date3, 0)</value>
+  </data>
+  <data name="InsertPlayer" xml:space="preserve">
+    <value>INSERT INTO players (Id, Name, Birthday, user, state, cost, stage) VALUES (@id, @name, @birthday, @idUser, @state, @cost, 2)</value>
+  </data>
+  <data name="InsertQuery" xml:space="preserve">
+    <value>INSERT INTO queries (id, user, dateQuery, dateFor, stage, player, position, phisical, emotional, shift1, shift2, shift3) VALUES (@id, @idUser, @dateQuery, @dateFor, 2, @idPlayer, 0, @phisical, @emotional, @shift1, @shift2, @shift3)</value>
   </data>
   <data name="LoadDays" xml:space="preserve">
     <value>SELECT * FROM days WHERE user = @user ORDER BY dateMark</value>
   </data>
   <data name="LoadUsers" xml:space="preserve">
-    <value>SELECT * FROM users</value>
+    <value>SELECT u.Id, u.Name, u.RealName, 
+	(SELECT COUNT( d.Id ) FROM days d WHERE d.user = u.Id) AS DaysCount, 
+	(SELECT COUNT( p.Id ) FROM players p WHERE p.user = u.Id) AS PlayersCount
+FROM users u
+GROUP BY u.Id, u.Name, u.RealName</value>
+  </data>
+  <data name="UpdateName" xml:space="preserve">
+    <value>UPDATE players SET name = @name WHERE Id = @id</value>
   </data>
 </root>

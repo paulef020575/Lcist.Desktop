@@ -55,10 +55,10 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
  
         #region RefreshDays
 
-        private void RefreshDays()
+        private void RefreshDays(LcistUser user)
         {
             UserDays.Clear();
-            foreach (PersonalDay personalDay in FirebirdDataProvider.GetUserDays(Settings.Default.LocalDbFile, CurrentUser))
+            foreach (PersonalDay personalDay in FirebirdDataProvider.GetUserDays(Settings.Default.LocalDbFile, user))
                 UserDays.Add(new PersonalDayViewModel(personalDay));
         }
 
@@ -66,10 +66,10 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
 
         #region RefreshResults
 
-        private void RefreshResults()
+        private void RefreshResults(LcistUser user)
         {
             UserResults.Clear();
-            foreach (PersonalResult personalResult in FirebirdDataProvider.GetUserResults(Settings.Default.LocalDbFile, CurrentUser))
+            foreach (PersonalResult personalResult in FirebirdDataProvider.GetUserResults(Settings.Default.LocalDbFile, user))
                 UserResults.Add(new PersonalResultViewModel(personalResult));
         }
 
@@ -222,8 +222,8 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
 
         protected override void RefreshUserData()
         {
-            RefreshDays();
-            RefreshResults();
+            RefreshDays(CurrentUser.DataItem);
+            RefreshResults(CurrentUser.DataItem);
         }
     }
 }

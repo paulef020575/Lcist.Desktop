@@ -3,8 +3,9 @@
                     xmlns:local="clr-namespace:Lcist.Desktop.Resources"
                     xmlns:viewModels="clr-namespace:Lcist.Desktop.ViewModels"
                     xmlns:views="clr-namespace:Lcist.Desktop.Views"
-                    xmlns:personalRythms="clr-namespace:Lcist.Desktop.ViewModels.PersonalRythms">
-    <DataTemplate DataType="{x:Type personalRythms:PersonalRhythmsVM}">
+                    xmlns:personalRythms="clr-namespace:Lcist.Desktop.ViewModels.PersonalRythms"
+                    xmlns:playersRythms="clr-namespace:Lcist.Desktop.ViewModels.PlayersRythms">
+    <DataTemplate DataType="{x:Type personalRythms:PersonalRhythmsViewModel}">
         <views:PersonalRhythmsView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
@@ -15,5 +16,8 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type personalRythms:UploadViewModel}">
         <views:UploadView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type playersRythms:UploadPlayersViewModel}">
+        <views:UploadPlayersView />
     </DataTemplate>
 </ResourceDictionary>

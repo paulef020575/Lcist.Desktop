@@ -42,6 +42,24 @@ namespace Lcist.Desktop.ViewModels.PersonalRythms
 
         #endregion
 
+        #region IdUser
+
+        /// <summary>
+        ///     Идентификатор пользователя
+        /// </summary>
+        public int IdUser => (DataItem.User).Id;
+
+        #endregion
+
+        #region UserName
+
+        /// <summary>
+        ///     Имя пользователя
+        /// </summary>
+        public string UserName => (DataItem.User).Name;
+
+        #endregion
+
         #region CanAdded
 
         private bool _canAdded;

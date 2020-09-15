@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using FirebirdSql.Data.FirebirdClient;
 using Lcist.Classes.BaseClasses;
@@ -6,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Lcist.Classes.PersonalRhythms
 {
-    public class PersonalResult : MySqlDataItem
+    public class PersonalResult : DataItem
     {
         #region Properties
 
@@ -33,7 +34,7 @@ namespace Lcist.Classes.PersonalRhythms
         /// <summary>
         ///     Стадия исполнения
         /// </summary>
-        public short Stage { get; set; }
+        public QueryStage Stage { get; set; }
 
         #endregion
 
@@ -64,29 +65,42 @@ namespace Lcist.Classes.PersonalRhythms
 
         #endregion
 
+        #region User
+
+        /// <summary>
+        ///     Пользователь, сгенерировавший запрос
+        /// </summary>
+        public LcistUser User { get; private set; }
+
         #endregion
 
-        #region Constructors
+        #endregion
 
-        public PersonalResult(FbDataReader reader)
+        public PersonalResult(FbDataReader reader) : base(reader) { }
+
+        public PersonalResult(MySqlDataReader reader) : base(reader) { }
+
+        public PersonalResult(MySqlDataReader reader, Dictionary<int, LcistUser> userList) : this(reader)
         {
-            Id = (int) reader["id"];
+            User = userList[(int) reader["user"]];
+        }
+
+        protected override void ReadItemProperties(MySqlDataReader reader)
+        {
             DateFrom = (DateTime)reader["dateFrom"];
-            Length = (short)reader["days"];
-            Stage = (short)reader["stage"];
-            Date1 = (DateTime)reader["date1"];
+            Length = (short)(sbyte) reader["length"];
+            Stage = (QueryStage)(sbyte)reader["stage1"];
+            Date1 = (DateTime) reader["date1"];
             Date2 = (DateTime)reader["date2"];
             Date3 = (DateTime)reader["date3"];
-         }
+        }
 
-        #endregion
-
-        protected override void ReadItemProperties(DbDataReader reader)
+        protected override void ReadItemProperties(FbDataReader reader)
         {
             DateFrom = (DateTime)reader["dateFrom"];
-            Length = (short) reader["length"];
-            Stage = (short)reader["stage1"];
-            Date1 = (DateTime) reader["date1"];
+            Length = (short)reader["days"];
+            Stage = (QueryStage)reader["stage"];
+            Date1 = (DateTime)reader["date1"];
             Date2 = (DateTime)reader["date2"];
             Date3 = (DateTime)reader["date3"];
         }

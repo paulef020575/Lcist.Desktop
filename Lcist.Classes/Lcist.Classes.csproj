@@ -58,13 +58,15 @@
   <ItemGroup>
     <Compile Include="BaseClasses\DataItem.cs" />
     <Compile Include="BaseClasses\FirebirdDataProvider.cs" />
-    <Compile Include="BaseClasses\MySqlDataItem.cs" />
     <Compile Include="BaseClasses\MySqlDataProvider.cs" />
+    <Compile Include="BaseClasses\QueryStage.cs" />
     <Compile Include="LcistUser.cs" />
     <Compile Include="PersonalRhythms\PersonalDay.cs" />
     <Compile Include="PersonalRhythms\PersonalResult.cs" />
+    <Compile Include="PlayersRhythms\Match.cs" />
     <Compile Include="PlayersRhythms\Player.cs" />
     <Compile Include="PlayersRhythms\PlayerAmpluaEnum.cs" />
+    <Compile Include="PlayersRhythms\Query.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

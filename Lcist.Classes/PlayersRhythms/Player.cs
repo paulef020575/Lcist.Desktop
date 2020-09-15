@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Data.Common;
 using Lcist.Classes.BaseClasses;
+using MySql.Data.MySqlClient;
 
 namespace Lcist.Classes.PlayersRhythms
 {
     /// <summary>
     ///     
     /// </summary>
-    public class Player : MySqlDataItem
+    public class Player : DataItem
     {
         #region Properties
 
@@ -58,6 +59,8 @@ namespace Lcist.Classes.PlayersRhythms
 
         #endregion
 
+        public Player(DbDataReader reader) : base(reader) { }
+
         protected override void ReadItemProperties(DbDataReader reader)
         {
             Name = (string) reader["name"];
@@ -67,5 +70,33 @@ namespace Lcist.Classes.PlayersRhythms
         }
 
         public override string GetDescription() => Name;
+
+        public static MySqlCommand GetInsertCommand()
+        {
+            /*
+             * INSERT INTO players (Id, Name, Birthday, user, state, cost, stage)
+             * VALUES (@id, @name, @birthday, @idUser, @state, @cost, 2)
+             */
+            MySqlCommand command = new MySqlCommand(Resources.MySqlQueries.InsertPlayer);
+            command.Parameters.Add("id", MySqlDbType.Int32);
+            command.Parameters.Add("name", MySqlDbType.VarChar);
+            command.Parameters.Add("birthday", MySqlDbType.Date);
+            command.Parameters.Add("idUser", MySqlDbType.Int32);
+            command.Parameters.Add("state", MySqlDbType.Int32);
+            command.Parameters.Add("cost", MySqlDbType.Decimal);
+
+            return command;
+        }
+
+        public void InsertIntoRemDb(MySqlCommand command)
+        {
+            command.Parameters["id"].Value = Id;
+            command.Parameters["name"].Value = Name;
+            command.Parameters["birthday"].Value = Birthday;
+            command.Parameters["state"].Value = State;
+            command.Parameters["cost"].Value = Cost;
+
+            command.ExecuteNonQuery();
+        }
     }
 }

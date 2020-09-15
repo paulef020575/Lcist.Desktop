@@ -9,8 +9,10 @@ namespace Lcist.Classes.PersonalRhythms
     /// <summary>
     ///     Оценка дня пользователем
     /// </summary>
-    public class PersonalDay : MySqlDataItem
+    public class PersonalDay : DataItem
     {
+        public override bool HasIdentifier => false;
+
         /// <summary>
         ///     Дата оценки
         /// </summary>
@@ -36,27 +38,30 @@ namespace Lcist.Classes.PersonalRhythms
         /// </summary>
         public bool CanAdded { get; set; }
 
-        public PersonalDay(DbDataReader reader) : base(reader)
+        public PersonalDay(MySqlDataReader reader) : base(reader)
         {
             IsCalculating = false;
             CanAdded = false;
         }
 
-        public PersonalDay(FbDataReader reader)
+        public PersonalDay(FbDataReader reader) : base(reader)
         {
-            Id = 0;
-            Date = (DateTime) reader["DateDay"];
-            Mark1 = (int) reader["Mark1"];
-            Mark2 = (int) reader["Mark2"];
             IsCalculating = false;
             CanAdded = false;
         }
 
-        protected override void ReadItemProperties(DbDataReader reader)
+        protected override void ReadItemProperties(MySqlDataReader reader)
         {
             Date = (DateTime) reader["dateMark"];
             Mark1 = (int) reader["mark1"];
             Mark2 = (int) reader["mark2"];
+        }
+
+        protected override void ReadItemProperties(FbDataReader reader)
+        {
+            Date = (DateTime)reader["DateDay"];
+            Mark1 = (int)reader["Mark1"];
+            Mark2 = (int)reader["Mark2"];
         }
 
         public override string GetDescription() => Date.ToShortDateString();

@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="Lcist.Desktop.Views.UploadPlayersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lcist.Desktop.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding UserList}" SelectedItem="{Binding CurrentUser}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" FontWeight="Medium" Margin="0 0 5 0" />
+                        <TextBlock Text="{Binding PlayersCount}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>      
+        <TextBox DockPanel.Dock="Top" Padding="10" Text="{Binding Message}" Visibility="Collapsed"
+                 Foreground="{Binding MessageForeground}" Background="{Binding MessageBackground}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <DataGrid ItemsSource="{Binding UserPlayers}" SelectedItem="{Binding SelectedPlayer}" AutoGenerateColumns="False" DockPanel.Dock="Left"
+                      Grid.RowSpan="3">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="ID" />
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Игрок"/>
+                    <DataGridCheckBoxColumn Binding="{Binding CanAdd}" Header="выгружать"/>
+                    <DataGridCheckBoxColumn Binding="{Binding CanAddMatches, Mode=OneWay}" Header="матчи" />
+                    <DataGridCheckBoxColumn Binding="{Binding CanAddQueries, Mode=OneWay}" Header="расчеты" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="5">
+                <TextBlock Margin="0 0 5 0" Text="Матчи игрока" FontWeight="Medium" />
+                <TextBlock Text="{Binding PlayerMatches.Count}" />
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding PlayerMatches}" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding DateMatch, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding CanAdd}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="5">
+                <TextBlock Margin="0 0 5 0" Text="Выполненные расчеты" FontWeight="Medium" />
+                <TextBlock Text="{Binding PlayerQueries.Count}" />
+            </StackPanel>
+
+            <DataGrid ItemsSource="{Binding PlayerQueries}" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding DateFor, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding CanAdd}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation ="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                <Button Margin="5" Padding="5" Command="{Binding UploadCommand}" HorizontalAlignment="Right">Восстановить</Button>
+                <Button Margin="5" Padding="5" Command="{Binding SelectAllCommand}">Выделить всех</Button>
+                <Button Margin="5" Padding="5" Command="{Binding UpdateNamesCommand}">Отправить имена</Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

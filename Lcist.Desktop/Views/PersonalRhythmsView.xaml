@@ -7,54 +7,25 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <TextBlock Margin="5" Text="Пользователь" />
-            <ComboBox ItemsSource="{Binding UserList}" SelectedItem="{Binding User}" />
-        </StackPanel>
-        <ListBox ItemsSource="{Binding FullDayList}">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type personalRhythms:PersonalDay}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="25" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="25" />
-                        </Grid.ColumnDefinitions>
 
-                        <iconPacks:PackIconMaterial Kind="Check" Grid.Column="0" Foreground="Green">
-                            <iconPacks:PackIconMaterial.Style>
-                                <Style TargetType="iconPacks:PackIconMaterial">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsCalculating}" Value="False">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsCalculating}" Value="True">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </iconPacks:PackIconMaterial.Style>
-                        </iconPacks:PackIconMaterial>
-                        <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy'}" Grid.Column="1" />
-                        <Button Grid.Column="2">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding CanAdded}" Value="False">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding CanAdded}" Value="True">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <iconPacks:PackIconMaterial Kind="Plus" Height="6px" />
-                        </Button>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+    <DockPanel>
+        <DockPanel.Resources>
+            <ControlTemplate x:Key="WaitControlTemplate">
+                <TextBlock Text="Загрузка ..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+            </ControlTemplate>
+        </DockPanel.Resources>
+
+        <TextBlock Text="{Binding Message}" DockPanel.Dock="Top" Margin="10" />
+        <ListBox ItemsSource="{Binding QueriesQueue, IsAsync=True}">
+            <ListBox.Style>
+                <Style TargetType="{x:Type ListBox}">
+                    <Style.Triggers>
+                        <Trigger Property="ItemsSource" Value="{x:Null}">
+                            <Setter Property="Template" Value="{StaticResource WaitControlTemplate}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+           </ListBox.Style>
         </ListBox>
     </DockPanel>
 </UserControl>

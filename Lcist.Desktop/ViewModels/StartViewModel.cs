@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Documents;
 using Lcist.Desktop.ViewModels.Base;
 using Lcist.Desktop.ViewModels.PersonalRythms;
+using Lcist.Desktop.ViewModels.PlayersRythms;
 using Lcist.Resources;
 
 namespace Lcist.Desktop.ViewModels
@@ -37,7 +38,7 @@ namespace Lcist.Desktop.ViewModels
         public StartViewModel()
         {
             CreateMainMenu();
-            SetCurrentViewModel(new UploadViewModel());
+            SetCurrentViewModel(new UploadPlayersViewModel());
         }
 
 
@@ -91,7 +92,7 @@ namespace Lcist.Desktop.ViewModels
             get
             {
                 if (_personalRhythmsCommand == null)
-                    _personalRhythmsCommand = new RelayCommand(param => SetCurrentViewModel(new PersonalRhythmsVM()));
+                    _personalRhythmsCommand = new RelayCommand(param => SetCurrentViewModel(new PersonalRhythmsViewModel()));
 
                 return _personalRhythmsCommand;
             }
@@ -127,7 +128,7 @@ namespace Lcist.Desktop.ViewModels
             get
             {
                 if (_uploadCommand == null)
-                    _uploadCommand = new RelayCommand(param => SetCurrentViewModel(new UploadViewModel()));
+                    _uploadCommand = new RelayCommand(param => SetCurrentViewModel(new UploadPlayersViewModel()));
 
                 return _uploadCommand;
             }

@@ -1,6 +1,5 @@
-﻿using System.Data.Common;
-using System.Net.NetworkInformation;
-using FirebirdSql.Data.FirebirdClient;
+﻿using System;
+using System.Data.Common;
 using Lcist.Classes.BaseClasses;
 
 namespace Lcist.Classes
@@ -8,7 +7,7 @@ namespace Lcist.Classes
     /// <summary>
     ///     Класс "Пользователь системы"
     /// </summary>
-    public class LcistUser : MySqlDataItem
+    public class LcistUser : DataItem
     {
         #region Properties
 
@@ -46,16 +45,6 @@ namespace Lcist.Classes
         {
         }
 
-        public LcistUser(FbDataReader reader)
-        {
-            Id = (int)reader["ID"];
-            Name = (string)reader["Name"];
-            RealName = (string) reader["RealName"];
-
-            DaysCount = (int) reader["daysCount"];
-            PlayersCount = (int) reader["playersCount"];
-        }
-
         /// <summary>
         ///     Заполняет свойства объекта
         /// </summary>
@@ -64,6 +53,8 @@ namespace Lcist.Classes
         {
             Name = (string) reader["name"];
             RealName = (string) reader["realName"];
+            DaysCount = Convert.ToInt32(reader["daysCount"]);
+            PlayersCount = Convert.ToInt32(reader["playersCount"]);
         }
 
         public override string GetDescription() => $"{Name} ({RealName})";
